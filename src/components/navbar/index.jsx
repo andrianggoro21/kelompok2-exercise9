@@ -1,8 +1,10 @@
 import React from "react";
 import { Flex, HStack, Icon, Input, Link, Button } from "@chakra-ui/react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function Navbar() {
+  const count = useSelector((state) => state.product.value);
   return (
     <Flex
       as="nav"
@@ -37,8 +39,9 @@ function Navbar() {
         </Button>
       </HStack>
       <Flex>
-        <Link href="#" fontWeight="bold">
+        <Link href="#" fontWeight="bold" display='flex' alignItems='center' gap='10px'>
           <Icon as={FaShoppingCart} />
+          <p>{count}</p>
         </Link>
       </Flex>
     </Flex>

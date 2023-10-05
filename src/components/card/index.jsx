@@ -3,8 +3,12 @@ import { Image } from "@chakra-ui/react";
 import { Heading, Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { data } from "../../database/data";
+import { useDispatch } from "react-redux";
+import { increment } from "../../redux/reducers";
 
 const NewCard = () => {
+  const dispatch = useDispatch();
+
   return (
     <>
       <Box
@@ -41,10 +45,10 @@ const NewCard = () => {
                   <Text key={index}>{prop.price}</Text>
                 </Box>
                 <Box display="flex" justifyContent="space-between">
-                  <Button colorScheme="green" variant="outline" size="xs">
+                  <Button colorScheme="green" variant="outline" size="xs" >
                     Beli Langsung
                   </Button>
-                  <Button colorScheme="green" size="xs">
+                  <Button colorScheme="green" size="xs" onClick={() => dispatch(increment())}>
                     +Keranjang
                   </Button>
                 </Box>

@@ -1,23 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-// import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { ChakraProvider } from '@chakra-ui/react';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+import { store } from "./redux/store";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <Provider>
-  <ChakraProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ChakraProvider>
-  // </Provider>
-    
-  
+  <Provider store={store}>
+    <ChakraProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ChakraProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
