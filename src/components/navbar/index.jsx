@@ -14,7 +14,7 @@ function Navbar() {
       color="white"
     >
       <Flex align="center">
-        <Link href="#" fontWeight="bold">
+        <Link href="/" fontWeight="bold">
           Tokped
         </Link>
       </Flex>
@@ -37,7 +37,7 @@ function Navbar() {
         </Button>
       </HStack>
       <Flex>
-        <Link href="#" fontWeight="bold">
+        <Link href="/cart" fontWeight="bold">
           <Icon as={FaShoppingCart} />
         </Link>
       </Flex>

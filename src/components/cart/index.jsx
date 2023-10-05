@@ -11,56 +11,27 @@ import {
   IconButton,
   Heading,
   useCounter,
+  Image,
 } from "@chakra-ui/react";
 // import { DeleteIcon, MinusIcon, AddIcon } from "@chakra-ui/icons";
 
-import {TbCircleMinus} from "react-icons/tb";
-import {MdAddCircleOutline} from "react-icons/md";
+import { TbCircleMinus } from "react-icons/tb";
+import { MdAddCircleOutline } from "react-icons/md";
 
 import { useState, useEffect } from "react";
+import { data } from "../../database/data";
 
 const CompCart = () => {
-  const listCart = [
-    {
-      id: 1,
-      nama_toko: "Toko A",
-      asal_toko: "Asal A",
-      gambar: "GAMBAR A",
-      nama_barang: "Barang A",
-      harga_barang: "1000",
-    },
-    {
-      id: 2,
-      nama_toko: "Toko B",
-      asal_toko: "Asal B",
-      gambar: "GAMBAR B",
-      nama_barang: "Barang B",
-      harga_barang: "2000",
-    },
-    {
-      id: 3,
-      nama_toko: "Toko C",
-      asal_toko: "Asal C",
-      gambar: "GAMBAR C",
-      nama_barang: "Barang C",
-      harga_barang: "3000",
-    },
-  ];
-  const useCounter = (val, step) => {
-    const [count, setCount] = useState(val);
+  const [count, setCount] = useState(0);
 
-    const increment = () => {
-      setCount(count + step);
-    };
-
-    const decrement = () => {
-      setCount(count !== 0 ? count - step : 0);
-    };
-
-    return [count, increment, decrement];
+  const increment = () => {
+    setCount(count + 1);
   };
 
-  const [count, increment, decrement] = useCounter(0, 1);
+  const decrement = () => {
+    setCount(count - 1);
+  };
+  
   return (
     <Box display="block" position="static">
       <Box display="flex" flexDirection="row">
@@ -75,22 +46,27 @@ const CompCart = () => {
                   Pilih Semua
                 </Text>
               </Checkbox>
-              <Link color="green" fontWeight="bold" textDecorationLine="none" _hover={{ textDecoration: "none" }}>
+              <Link
+                color="green"
+                fontWeight="bold"
+                textDecorationLine="none"
+                _hover={{ textDecoration: "none" }}
+              >
                 Hapus
               </Link>
             </Flex>
           </Box>
           <Divider h="5px" background="grey.600" orientation="horizontal" />
           <Box>
-            {listCart.map((data, index) => (
+            {data.map((item, index) => (
               <Box key={index} w="100%">
                 <List display="flex" flexDirection="column">
                   <Box display="flex" flexDirection="row">
                     <Box display="flex" flexDirection="column">
                       <Checkbox>
-                        <Text fontWeight="bold">{data.nama_toko}</Text>
+                        <Text fontWeight="bold">{item.store}</Text>
                       </Checkbox>
-                      <Text ml="1.5em">{data.asal_toko}</Text>
+                      <Text ml="1.5em">{item.city}</Text>
                     </Box>
                   </Box>
                   <Box display="flex" flexDirection="row" gap="1em">
@@ -102,12 +78,12 @@ const CompCart = () => {
                         justifyContent="center"
                         alignItems="center"
                       >
-                        {data.gambar}
+                        <Image src={item.path} />
                       </Box>
                     </Checkbox>
                     <Box display="flex" flexDirection="column">
-                      <Text>{data.nama_barang}</Text>
-                      <Text>{data.harga_barang}</Text>
+                      <Text>{item.title}</Text>
+                      <Text>{item.price}</Text>
                     </Box>
                   </Box>
                   <Box
@@ -124,10 +100,13 @@ const CompCart = () => {
                       ml="1.5em"
                       fontSize="0.9em"
                     >
-                     
-              <Link color="green" textDecorationLine="none" _hover={{ textDecoration: "none" }}>
-                Tulis Catatan
-              </Link>
+                      <Link
+                        color="green"
+                        textDecorationLine="none"
+                        _hover={{ textDecoration: "none" }}
+                      >
+                        Tulis Catatan
+                      </Link>
                       <Text color="grey">Pindahkan ke Wishtlist</Text>
                     </Box>
                     <Box
@@ -148,9 +127,17 @@ const CompCart = () => {
                         alignItems="center"
                       >
                         {/* <FiMinusCircle/> */}
-                        <IconButton icon={<TbCircleMinus color="green" size="22" />} colorScheme="transparent" onClick={decrement}></IconButton>
+                        <IconButton
+                          icon={<TbCircleMinus color="green" size="22" />}
+                          colorScheme="transparent"
+                          onClick={decrement}
+                        ></IconButton>
                         <Text>{count}</Text>
-                        <IconButton icon={<MdAddCircleOutline color="green" size="22" />} colorScheme="transparent" onClick={increment}></IconButton>
+                        <IconButton
+                          icon={<MdAddCircleOutline color="green" size="22" />}
+                          colorScheme="transparent"
+                          onClick={increment}
+                        ></IconButton>
                       </Box>
                     </Box>
                   </Box>
