@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, HStack, Icon, Input, Link, Button } from "@chakra-ui/react";
+import { Flex, HStack, Icon, Input, Link, Button, IconButton, Text } from "@chakra-ui/react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 
 function Navbar() {
@@ -13,8 +13,13 @@ function Navbar() {
       bg="green.500"
       color="white"
     >
+<<<<<<< Updated upstream
       <Flex align="center">
         <Link href="#" fontWeight="bold">
+=======
+      <Flex align="center" fontSize='1.5em'>
+        <Link href="/" fontWeight="bold">
+>>>>>>> Stashed changes
           Tokped
         </Link>
       </Flex>
@@ -36,12 +41,19 @@ function Navbar() {
           Cari
         </Button>
       </HStack>
+<<<<<<< Updated upstream
       <Flex>
         <Link href="#" fontWeight="bold">
           <Icon as={FaShoppingCart} />
+=======
+      
+        <Link href="/cart" fontWeight="bold" display='flex' color='red.400'>
+          <IconButton icon={<FaShoppingCart size= '25' />} colorScheme='transparent' />
+          <Button position='absoulute' transform='translate(-60%, -30%)' borderRadius='50%' size='xs' fontSize='1em' fontWeight='bold' colorScheme="red">{count} </Button>
+>>>>>>> Stashed changes
         </Link>
       </Flex>
-    </Flex>
+  
   );
 }
 
