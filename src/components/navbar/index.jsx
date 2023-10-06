@@ -1,6 +1,5 @@
 import React from "react";
-import { Flex, HStack, Icon, Input, Button } from "@chakra-ui/react";
-import { Flex, HStack, Icon, Input, Link, Button, IconButton, Text } from "@chakra-ui/react";
+import { Flex, HStack, Icon, Input, Button, IconButton} from "@chakra-ui/react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -26,10 +25,8 @@ function Navbar() {
       bg="green.500"
       color="white"
     >
-      <Flex align="center">
-        <Link to="/" fontWeight="bold">
       <Flex align="center" fontSize='1.5em'>
-        <Link href="/" fontWeight="bold">
+        <Link to="/" fontWeight="bold">
           Tokped
         </Link>
       </Flex>
@@ -51,15 +48,11 @@ function Navbar() {
           Cari
         </Button>
       </HStack>
-      <Flex>
-        <Link to="/cart" fontWeight="bold" display='flex' alignItems='center' gap='10px'>
-          <Icon as={FaShoppingCart} />
-          {/* {count} */}
-          <p>{getTotalQuantity() || ""}</p>
-      
-        <Link href="/cart" fontWeight="bold" display='flex' color='red.400'>
+        <Link to="/cart" fontWeight="bold" display='flex' color='red.400'>
           <IconButton icon={<FaShoppingCart size= '25' />} colorScheme='transparent' />
-          <Button position='absoulute' transform='translate(-60%, -30%)' borderRadius='50%' size='xs' fontSize='1em' fontWeight='bold' colorScheme="red">{count} </Button>
+          {cart.length > 0 ? (
+            <Button position='absoulute' transform='translate(-60%, -30%)' borderRadius='50%' size='xs' fontSize='1em' fontWeight='bold' colorScheme="red">{getTotalQuantity() || ""}</Button>
+          ) : ("")}
         </Link>
       </Flex>
   
