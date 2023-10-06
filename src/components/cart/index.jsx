@@ -11,187 +11,226 @@ import {
   IconButton,
   Heading,
   useCounter,
+  Image,
 } from "@chakra-ui/react";
 // import { DeleteIcon, MinusIcon, AddIcon } from "@chakra-ui/icons";
 
-import {TbCircleMinus} from "react-icons/tb";
-import {MdAddCircleOutline} from "react-icons/md";
+import { TbCircleMinus } from "react-icons/tb";
+import { MdAddCircleOutline } from "react-icons/md";
+import { FiTrash2 } from "react-icons/fi";
 
 import { useState, useEffect } from "react";
+import { data } from "../../database/data";
 
 const CompCart = () => {
-  const listCart = [
-    {
-      id: 1,
-      nama_toko: "Toko A",
-      asal_toko: "Asal A",
-      gambar: "GAMBAR A",
-      nama_barang: "Barang A",
-      harga_barang: "1000",
-    },
-    {
-      id: 2,
-      nama_toko: "Toko B",
-      asal_toko: "Asal B",
-      gambar: "GAMBAR B",
-      nama_barang: "Barang B",
-      harga_barang: "2000",
-    },
-    {
-      id: 3,
-      nama_toko: "Toko C",
-      asal_toko: "Asal C",
-      gambar: "GAMBAR C",
-      nama_barang: "Barang C",
-      harga_barang: "3000",
-    },
-  ];
-  const useCounter = (val, step) => {
-    const [count, setCount] = useState(val);
+  const [count, setCount] = useState(0);
 
-    const increment = () => {
-      setCount(count + step);
-    };
-
-    const decrement = () => {
-      setCount(count !== 0 ? count - step : 0);
-    };
-
-    return [count, increment, decrement];
+  const increment = () => {
+    setCount(count + 1);
   };
 
-  const [count, increment, decrement] = useCounter(0, 1);
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
   return (
-    <Box display="block" position="static">
-      <Box display="flex" flexDirection="row">
-        <Box w="700px" h="100vh" textAlign="left">
-          <Box>
+      <Box display="flex" flexDirection="row" mt="1em" gap="3em">
+        <Box h="100vh" textAlign="left">
+          <Box lineHeight="2.5em">
             <Heading as="h4" size="md" fontWeight="bold">
               Keranjang
             </Heading>
             <Flex flexDirection="row" justifyContent="space-between">
-              <Checkbox>
+              <Checkbox
+                size="md"
+                colorScheme="green"
+                borderColor="black"
+                _hover={{ borderColor: "green" }}
+              >
                 <Text color="grey" position="sticky" top="0">
                   Pilih Semua
                 </Text>
               </Checkbox>
-              <Link color="green" fontWeight="bold" textDecorationLine="none" _hover={{ textDecoration: "none" }}>
+              <Link
+                color="green"
+                fontWeight="bold"
+                textDecorationLine="none"
+                _hover={{ textDecoration: "none" }}
+              >
                 Hapus
               </Link>
             </Flex>
           </Box>
-          <Divider h="5px" background="grey.600" orientation="horizontal" />
+          <Divider
+            mb="1em"
+            boxShadow="1px 1px 1.5px 0.2px grey"
+            orientation="horizontal"
+          />
           <Box>
-            {listCart.map((data, index) => (
-              <Box key={index} w="100%">
+            {data.map((item, index) => (
+              <Box key={index} w="100%" pb="1em">
                 <List display="flex" flexDirection="column">
-                  <Box display="flex" flexDirection="row">
-                    <Box display="flex" flexDirection="column">
-                      <Checkbox>
-                        <Text fontWeight="bold">{data.nama_toko}</Text>
+                  <Flex flexDirection="row">
+                    <Flex flexDirection="column">
+                      <Checkbox
+                        size="md"
+                        colorScheme="green"
+                        borderColor="black"
+                        _hover={{ borderColor: "green" }}
+                      >
+                        <Text fontWeight="bold" fontSize="1em">
+                          {item.store}
+                        </Text>
                       </Checkbox>
-                      <Text ml="1.5em">{data.asal_toko}</Text>
-                    </Box>
-                  </Box>
-                  <Box display="flex" flexDirection="row" gap="1em">
-                    <Checkbox>
-                      <Box
+                      <Text ml="1.5em" fontSize="1em">
+                        {item.city}
+                      </Text>
+                    </Flex>
+                  </Flex>
+                  <Flex flexDirection="row" gap="1em">
+                    <Checkbox
+                      size="md"
+                      colorScheme="green"
+                      borderColor="black"
+                      _hover={{ borderColor: "green" }}
+                    >
+                      <Flex
                         border="1px solid black"
                         borderColor="gray.200"
-                        display="flex"
                         justifyContent="center"
                         alignItems="center"
                       >
-                        {data.gambar}
-                      </Box>
+                        <Image src={item.path} />
+                      </Flex>
                     </Checkbox>
-                    <Box display="flex" flexDirection="column">
-                      <Text>{data.nama_barang}</Text>
-                      <Text>{data.harga_barang}</Text>
-                    </Box>
-                  </Box>
-                  <Box
-                    display="flex"
+                    <Flex flexDirection="column">
+                      <Text>{item.title}</Text>
+                      <Text>{item.price}</Text>
+                    </Flex>
+                  </Flex>
+                  <Flex
                     flexDirection="row"
                     justifyContent="space-between"
                     alignItems="center"
+                    w="100%"
                   >
-                    <Box
-                      display="flex"
+                    <Flex
                       flexDirection="row"
                       justifyContent="space-between"
-                      w="400px"
+                      w="80%"
                       ml="1.5em"
                       fontSize="0.9em"
+                      alignItems="center"
                     >
-                     
-              <Link color="green" textDecorationLine="none" _hover={{ textDecoration: "none" }}>
-                Tulis Catatan
-              </Link>
-                      <Text color="grey">Pindahkan ke Wishtlist</Text>
-                    </Box>
-                    <Box
-                      display="flex"
+                      <Link
+                        color="green"
+                        textDecorationLine="none"
+                        _hover={{ textDecoration: "none" }}
+                      >
+                        Tulis Catatan
+                      </Link>
+                      <Flex
+                        flexDirection="row"
+                        alignItems="center"
+                        gap="10px"
+                      >
+                        <Link
+                          color="grey"
+                          textDecorationLine="none"
+                          _hover={{ textDecoration: "none" }}
+                        >
+                          Pindahkan ke Wishlist
+                        </Link>
+                        <Center height="1.5em">
+                          <Divider
+                            boxShadow="1px 1px 1.5px 0.2px grey"
+                            orientation="vertical"
+                          />
+                        </Center>
+                        <IconButton
+                          icon={<FiTrash2 color="green" size="22" />}
+                          colorScheme="transparent"
+                        />
+                      </Flex>
+                    </Flex>
+                    <Flex
                       flexDirection="row"
                       justifyContent="space-between"
                       alignItems="center"
-                      w="200px"
                     >
-                      <Box>
-                        {/* <IconButton icon={<DeleteIcon />} h="10px"></IconButton> */}
-                      </Box>
-                      <Box
+                      <Flex
                         w="100px"
-                        display="flex"
                         flexDirection="row"
                         justifyContent="space-between"
                         alignItems="center"
                       >
-                        {/* <FiMinusCircle/> */}
-                        <IconButton icon={<TbCircleMinus color="green" size="22" />} colorScheme="transparent" onClick={decrement}></IconButton>
+                        <IconButton
+                          icon={<TbCircleMinus color="green" size="22" />}
+                          colorScheme="transparent"
+                          onClick={decrement}
+                        ></IconButton>
                         <Text>{count}</Text>
-                        <IconButton icon={<MdAddCircleOutline color="green" size="22" />} colorScheme="transparent" onClick={increment}></IconButton>
-                      </Box>
-                    </Box>
-                  </Box>
+                        <IconButton
+                          icon={<MdAddCircleOutline color="green" size="22" />}
+                          colorScheme="transparent"
+                          onClick={increment}
+                        ></IconButton>
+                      </Flex>
+                    </Flex>
+                  </Flex>
                 </List>
+                <Divider
+                  boxShadow="1px 1px 1.5px 0.2px grey"
+                  orientation="horizontal"
+                />
               </Box>
             ))}
           </Box>
         </Box>
-        <Box w="500px" p="1em">
+        <Box p="1em">
           <Box
             w="350px"
             p="1em"
             background="white"
             textAlign="left"
-            borderRadius="0.5em"
-            border="1px solid grey"
+            lineHeight="2em"
+            boxShadow="0.5px 2px 5px 0.2px grey"
+            rounded="md"
           >
             <Text fontWeight="bold">Ringkasan Belanja</Text>
-            <Box
-              display="flex"
+            {/* <Flex
               flexDirection="row"
               justifyContent="space-between"
+              color="grey"
             >
               <Text>Total Harga ({count} barang)</Text>
               <Text>Rp. 0</Text>
-            </Box>
-            <Box
-              display="flex"
+            </Flex> */}
+            <Divider
+              boxShadow="1px 1px 1.5px 0.2px grey"
+              orientation="horizontal"
+            />
+            <Flex
               flexDirection="row"
               justifyContent="space-between"
+              lineHeight="3em"
+              fontWeight="bold"
             >
-              <Text fontWeight="bold">Total Harga</Text>
+              <Text>Total Harga</Text>
               <Text>-</Text>
-            </Box>
-            <Button w="100%" variant="solid" colorScheme="whatsapp">
+            </Flex>
+            <Button
+              w="100%"
+              h="2.5em"
+              variant="solid"
+              colorScheme="whatsapp"
+              fontWeight="bold"
+            >
               Beli (0)
             </Button>
           </Box>
         </Box>
       </Box>
-    </Box>
   );
 };
 
