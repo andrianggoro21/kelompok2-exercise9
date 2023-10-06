@@ -34,6 +34,7 @@ function Navbar() {
       bg="green.500"
       position="fixed"
       color="white"
+      zIndex="10"
     >
       <Flex align="center" fontSize="1.5em">
         <Link to="/">
