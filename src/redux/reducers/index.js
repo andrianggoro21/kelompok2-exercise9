@@ -1,25 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    value: 0,
-}
+  value: [],
+//   count: 0,
+};
 
-export const counterProduct = createSlice({
-    name: "product",
-    initialState,
-    reducers: {
-        increment: (state) => {
-            state.value += 1;
-        }, 
-        decrement: (state) => {
-            state.value -= 1;
-        },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload;
-        },
+export const cartSlice = createSlice({
+  name: "product",
+  initialState,
+  reducers: {
+    add(state, action) {
+      const newItems = action.payload;
+      const checkItem = state.value.find((item) => item.id === newItems.id);
+      if (checkItem) {
+        alert(
+          "Product ini sudah berada di keranjang, silahkan lakukan pembayaran"
+        );
+      } else {
+        // state.count += 1;
+        state.value.push({ ...action.payload, quantity: 1 });
+      }
     },
-})
+    increment: (state, action) => {
+      const item = state.value.find((item) => item.id === action.payload);
+      item.quantity++;
+    },
+    decrement: (state, action) => {
+      const item = state.value.find((item) => item.id === action.payload);
+      if (item.quantity === 1) {
+        item.quantity = 1;
+      } else {
+        item.quantity--;
+      }
+    },
+    remove(state, action) {
+      const itemRemove = action.payload;
+      state.value = state.value.filter((item) => item.id !== itemRemove);
+      state.countCart -= 1;
+    },
+  },
+});
 
-export const { increment, decrement, incrementByAmount } = counterProduct.actions;
-
-export default counterProduct.reducer;
+export const { add, remove, increment, decrement } = cartSlice.actions;
+export default cartSlice.reducer;

@@ -1,6 +1,5 @@
 import {
   Divider,
-  Center,
   Flex,
   Checkbox,
   Box,
@@ -10,28 +9,30 @@ import {
   Button,
   IconButton,
   Heading,
-  useCounter,
   Image,
 } from "@chakra-ui/react";
-// import { DeleteIcon, MinusIcon, AddIcon } from "@chakra-ui/icons";
-
 import { TbCircleMinus } from "react-icons/tb";
 import { MdAddCircleOutline } from "react-icons/md";
-
-import { useState, useEffect } from "react";
-import { data } from "../../database/data";
+import { useDispatch } from 'react-redux'
+import { useSelector } from "react-redux";
+import { increment, decrement } from "../../redux/reducers";
+import toRupiah from '@develoka/angka-rupiah-js';
 
 const CompCart = () => {
-  const [count, setCount] = useState(0);
+  const cart = useSelector((state) => state.product.value)
+  const dispatch = useDispatch()
 
-  const increment = () => {
-    setCount(count + 1);
-  };
-
-  const decrement = () => {
-    setCount(count - 1);
-  };
+  const getTotal = () => {
+    let totalQuantity = 0
+    let totalPrice = 0
+    cart.forEach(item => {
+      totalQuantity += item.quantity
+      totalPrice += item.price * item.quantity
+    })
+    return {totalPrice, totalQuantity}
+  }
   
+
   return (
     <Box display="block" position="static">
       <Box display="flex" flexDirection="row">
@@ -58,7 +59,7 @@ const CompCart = () => {
           </Box>
           <Divider h="5px" background="grey.600" orientation="horizontal" />
           <Box>
-            {data.map((item, index) => (
+            {cart.map((item, index) => (
               <Box key={index} w="100%">
                 <List display="flex" flexDirection="column">
                   <Box display="flex" flexDirection="row">
@@ -83,7 +84,7 @@ const CompCart = () => {
                     </Checkbox>
                     <Box display="flex" flexDirection="column">
                       <Text>{item.title}</Text>
-                      <Text>{item.price}</Text>
+                      <Text>{toRupiah(item.price, {formal: false})}</Text>
                     </Box>
                   </Box>
                   <Box
@@ -130,13 +131,13 @@ const CompCart = () => {
                         <IconButton
                           icon={<TbCircleMinus color="green" size="22" />}
                           colorScheme="transparent"
-                          onClick={decrement}
+                          onClick={() => dispatch(decrement(item.id))}
                         ></IconButton>
-                        <Text>{count}</Text>
+                        <Text>{item.quantity}</Text>
                         <IconButton
                           icon={<MdAddCircleOutline color="green" size="22" />}
                           colorScheme="transparent"
-                          onClick={increment}
+                          onClick={() => dispatch(increment(item.id))}
                         ></IconButton>
                       </Box>
                     </Box>
@@ -161,19 +162,11 @@ const CompCart = () => {
               flexDirection="row"
               justifyContent="space-between"
             >
-              <Text>Total Harga ({count} barang)</Text>
-              <Text>Rp. 0</Text>
-            </Box>
-            <Box
-              display="flex"
-              flexDirection="row"
-              justifyContent="space-between"
-            >
               <Text fontWeight="bold">Total Harga</Text>
-              <Text>-</Text>
+              <Text>{toRupiah(getTotal().totalPrice, {formal: false})}</Text>
             </Box>
             <Button w="100%" variant="solid" colorScheme="whatsapp">
-              Beli (0)
+              Beli ({getTotal().totalQuantity})
             </Button>
           </Box>
         </Box>
@@ -183,3 +176,8 @@ const CompCart = () => {
 };
 
 export default CompCart;
+
+
+
+
+

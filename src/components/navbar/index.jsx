@@ -1,10 +1,20 @@
 import React from "react";
-import { Flex, HStack, Icon, Input, Link, Button } from "@chakra-ui/react";
+import { Flex, HStack, Icon, Input, Button } from "@chakra-ui/react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  const count = useSelector((state) => state.product.value);
+ const cart = useSelector((state) => state.product.value)
+
+ const getTotalQuantity = () => {
+  let total = 0
+  cart.forEach(item => {
+    total += item.quantity
+  })
+  return total
+}
+
   return (
     <Flex
       as="nav"
@@ -16,7 +26,7 @@ function Navbar() {
       color="white"
     >
       <Flex align="center">
-        <Link href="/" fontWeight="bold">
+        <Link to="/" fontWeight="bold">
           Tokped
         </Link>
       </Flex>
@@ -39,9 +49,10 @@ function Navbar() {
         </Button>
       </HStack>
       <Flex>
-        <Link href="/cart" fontWeight="bold">
+        <Link to="/cart" fontWeight="bold" display='flex' alignItems='center' gap='10px'>
           <Icon as={FaShoppingCart} />
-          <p>{count}</p>
+          {/* {count} */}
+          <p>{getTotalQuantity() || ""}</p>
         </Link>
       </Flex>
     </Flex>

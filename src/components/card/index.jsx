@@ -1,14 +1,13 @@
-import { Box } from "@chakra-ui/react";
-import { Image } from "@chakra-ui/react";
-import { Heading, Text } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
+import { Box, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { data } from "../../database/data";
 import { useDispatch } from "react-redux";
-import { increment } from "../../redux/reducers";
+import { add } from "../../redux/reducers";
+import toRupiah from '@develoka/angka-rupiah-js'
 
 const NewCard = () => {
   const dispatch = useDispatch();
 
+  
   return (
     <>
       <Box
@@ -19,7 +18,7 @@ const NewCard = () => {
         justifyContent="center"
       >
         <Box display="grid" gridTemplateColumns="repeat(4, 1fr)">
-          {data.map((prop, index) => (
+          {data.map((item, index) => (
             <Box
               display="flex"
               flexDirection="column"
@@ -30,7 +29,7 @@ const NewCard = () => {
               boxShadow="0px 1px 6px 0px #808080"
             >
               <Box w="100%">
-                <Image src={prop.path} key={index} />
+                <Image src={item.path} key={index} />
               </Box>
               <Box
                 display="flex"
@@ -40,16 +39,20 @@ const NewCard = () => {
               >
                 <Box display="flex" flexDirection="column" gap="5px">
                   <Heading size="xs" h="50px" key={index}>
-                    {prop.title}
+                    {item.title}
                   </Heading>
-                  <Text key={index}>{prop.price}</Text>
+                  <Text key={index}>{toRupiah(item.price, {formal: false})}</Text>
                 </Box>
                 <Box display="flex" justifyContent="space-between">
-                  <Button colorScheme="green" variant="outline" size="xs" >
+                  <Button colorScheme="green" variant="outline" size="xs">
                     Beli Langsung
                   </Button>
-                  <Button colorScheme="green" size="xs" onClick={() => dispatch(increment())}>
-                    +Keranjang
+                  <Button
+                    colorScheme="green"
+                    size="xs"
+                    onClick={() => dispatch(add(item))}
+                  >
+                    +keranjang
                   </Button>
                 </Box>
               </Box>
