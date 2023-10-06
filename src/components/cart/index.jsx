@@ -35,8 +35,37 @@ const CompCart = () => {
   };
 
   return (
-    <Box display="flex" flexDirection="row" mt="4.5em" gap="3em">
-      <Box h="100vh" w="600px" textAlign="left">
+    <Box
+      display="flex"
+      justifyContent='center'
+      // mt="4.5em"
+      gap='3em'
+      sx={{
+        flexDirection: {
+          xs: "column-reverse",
+          sm: "column-reverse",
+          md: "column-reverse",
+          lg: "row",
+          xl: "row",
+          "2xl": "row",
+        },
+        
+      }}
+      
+    >
+      <Box h="100vh" w="50%" textAlign="left" 
+      sx={{
+        h: {
+          xs: "400px",
+          sm: "400px",
+          md: "400px",
+          lg: "100vh",
+          xl: "100vh",
+          "2xl": "100vh",
+        },
+
+        
+      }}>
         <Box lineHeight="2.5em">
           <Heading as="h4" size="md" fontWeight="bold">
             Keranjang

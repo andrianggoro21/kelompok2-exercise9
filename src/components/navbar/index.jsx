@@ -32,7 +32,7 @@ function Navbar() {
       w="full"
       p={2.5}
       bg="green.500"
-      position="fixed"
+      // position="fixed"
       color="white"
       zIndex="10"
     >
