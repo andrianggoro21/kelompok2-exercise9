@@ -1,5 +1,6 @@
 import React from "react";
 import { Flex, HStack, Icon, Input, Button } from "@chakra-ui/react";
+import { Flex, HStack, Icon, Input, Link, Button, IconButton, Text } from "@chakra-ui/react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -27,6 +28,8 @@ function Navbar() {
     >
       <Flex align="center">
         <Link to="/" fontWeight="bold">
+      <Flex align="center" fontSize='1.5em'>
+        <Link href="/" fontWeight="bold">
           Tokped
         </Link>
       </Flex>
@@ -53,9 +56,13 @@ function Navbar() {
           <Icon as={FaShoppingCart} />
           {/* {count} */}
           <p>{getTotalQuantity() || ""}</p>
+      
+        <Link href="/cart" fontWeight="bold" display='flex' color='red.400'>
+          <IconButton icon={<FaShoppingCart size= '25' />} colorScheme='transparent' />
+          <Button position='absoulute' transform='translate(-60%, -30%)' borderRadius='50%' size='xs' fontSize='1em' fontWeight='bold' colorScheme="red">{count} </Button>
         </Link>
       </Flex>
-    </Flex>
+  
   );
 }
 
