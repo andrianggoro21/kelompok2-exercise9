@@ -1,19 +1,27 @@
 import React from "react";
-import { Flex, HStack, Icon, Input, Button, IconButton} from "@chakra-ui/react";
+import {
+  Text,
+  Flex,
+  HStack,
+  Icon,
+  Input,
+  Button,
+  IconButton,
+} from "@chakra-ui/react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Navbar() {
- const cart = useSelector((state) => state.product.value)
+  const cart = useSelector((state) => state.product.value);
 
- const getTotalQuantity = () => {
-  let total = 0
-  cart.forEach(item => {
-    total += item.quantity
-  })
-  return total
-}
+  const getTotalQuantity = () => {
+    let total = 0;
+    cart.forEach((item) => {
+      total += item.quantity;
+    });
+    return total;
+  };
 
   return (
     <Flex
@@ -21,13 +29,15 @@ function Navbar() {
       align="center"
       justify="space-around"
       wrap="wrap"
-      p={4}
+      w="full"
+      p={2.5}
       bg="green.500"
+      position="fixed"
       color="white"
     >
-      <Flex align="center" fontSize='1.5em'>
-        <Link to="/" fontWeight="bold">
-          Tokped
+      <Flex align="center" fontSize="1.5em">
+        <Link to="/">
+          <Text fontWeight="bold">Tokped</Text>
         </Link>
       </Flex>
 
@@ -48,14 +58,31 @@ function Navbar() {
           Cari
         </Button>
       </HStack>
-        <Link to="/cart" fontWeight="bold" display='flex' color='red.400'>
-          <IconButton icon={<FaShoppingCart size= '25' />} colorScheme='transparent' />
-          {cart.length > 0 ? (
-            <Button position='absoulute' transform='translate(-60%, -30%)' borderRadius='50%' size='xs' fontSize='1em' fontWeight='bold' colorScheme="red">{getTotalQuantity() || ""}</Button>
-          ) : ("")}
-        </Link>
-      </Flex>
-  
+      <Link to="/cart" fontWeight="bold" display="flex" color="red.400">
+        <IconButton
+          icon={<FaShoppingCart size="20" />}
+          colorScheme="transparent"
+        />
+        {cart.length > 0 ? (
+          <Flex
+            w="1em"
+            h="1em"
+            transform="translate(20px, -38px)"
+            position="absolute"
+            borderRadius="100%"
+            background="red"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Text fontSize="0.8em" fontWeight="md">
+              {getTotalQuantity() || ""}
+            </Text>
+          </Flex>
+        ) : (
+          ""
+        )}
+      </Link>
+    </Flex>
   );
 }
 

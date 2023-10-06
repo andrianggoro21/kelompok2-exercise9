@@ -36,7 +36,7 @@ export const cartSlice = createSlice({
     remove(state, action) {
       const itemRemove = action.payload;
       state.value = state.value.filter((item) => item.id !== itemRemove);
-      state.countCart -= 1;
+      // state.countCart -= 1;
     },
   },
 });

@@ -4,7 +4,12 @@ import CompCart from "../../components/cart";
 const PageCart = () => {
   return (
     <>
-      <Box ml="100px" mr="100px" align="center" position="relative">
+      <Box maxW="full"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        ml="7%"
+        mr="7%">
         <CompCart></CompCart>
       </Box>
     </>
